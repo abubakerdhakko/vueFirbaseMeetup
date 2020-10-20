@@ -1,0 +1,83 @@
+<template>
+  <v-container>
+    <v-layout row>
+      <v-flex xs12 sm6 offset-sm3>
+        <v-card>
+          <v-card-text>
+            <v-container>
+              <form @submit.prevent="onSignIn">
+                <v-layout row>
+                  <v-flex xs12>
+                    <v-text-field
+                      name="email"
+                      label="Mail"
+                      id="email"
+                      v-model="email"
+                      type="email"
+                      required
+                    ></v-text-field>
+                  </v-flex>
+                </v-layout>
+                <v-layout row>
+                  <v-flex xs12>
+                    <v-text-field
+                      name="password"
+                      label="Password"
+                      id="password"
+                      v-model="password"
+                      type="password"
+                      required
+                    ></v-text-field>
+                  </v-flex>
+                </v-layout>
+
+                <v-layout row>
+                  <v-flex xs12>
+                    <v-btn type="submit">Sign in</v-btn>
+                  </v-flex>
+                </v-layout>
+              </form>
+            </v-container>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
+</template>
+
+<script>
+export default {
+  name: "Signup",
+  data() {
+    return {
+      name: "",
+      email: "",
+      password: "",
+    };
+  },
+  computed: {
+    user() {
+      this.$store.getters.user;
+    },
+  },
+  watch: {
+    user(value) {
+      if (value !== null && value !== undefined) {
+        this.$router.push("/");
+      }
+    },
+  },
+  methods: {
+    onSignIn() {
+      var a = { email: this.email, password: this.password };
+      console.log(a);
+
+      this.$store.dispatch("signInUser", a);
+    },
+  },
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+</style>
