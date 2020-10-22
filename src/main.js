@@ -4,9 +4,11 @@ import App from "./App";
 import router from "./router";
 import * as firebase from "firebase";
 import { store } from "./store";
+import AlertCmp from "./components/Shared/Alert";
 
 Vue.use(Vuetify);
 Vue.config.productionTip = false;
+Vue.component("app-alert", AlertCmp);
 
 /* eslint-disable no-new */
 new Vue({
@@ -21,7 +23,7 @@ new Vue({
       authDomain: "vuedevmt.firebaseapp.com",
       databaseURL: "https://vuedevmt.firebaseio.com",
       projectId: "vuedevmt",
-      storageBucket: "vuedevmt.appspot.com", 
+      storageBucket: "vuedevmt.appspot.com",
     });
   },
 });

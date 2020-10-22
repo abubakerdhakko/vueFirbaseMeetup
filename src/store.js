@@ -36,6 +36,7 @@ export const store = new Vuex.Store({
       },
     ],
     user: null,
+    error: null,
   },
   mutations: {
     createMeetup(state, payload) {
@@ -44,6 +45,16 @@ export const store = new Vuex.Store({
     setUser(state, payload) {
       state.user = payload;
       console.log("mutation");
+    },
+    setError(state, payload) {
+      state.error = payload;
+      console.log("payload", payload);
+    },
+    setError(state, payload) {
+      state.error = payload;
+    },
+    clearError(state) {
+      state.error = null;
     },
   },
   actions: {
@@ -71,7 +82,9 @@ export const store = new Vuex.Store({
           };
           commit("setUser", newUser);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          commit("setError", error);
+        });
     },
     signInUser({ commit }, payload) {
       firebase
@@ -84,7 +97,13 @@ export const store = new Vuex.Store({
           };
           commit("setUser", newUser);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          commit("setError", error);
+          console.log(error);
+        });
+    },
+    clearError({ commit }) {
+      commit("clearError");
     },
   },
   getters: {
@@ -105,6 +124,9 @@ export const store = new Vuex.Store({
     },
     user(state) {
       return state.user;
+    },
+    error(state) {
+      return state.error;
     },
   },
 });
