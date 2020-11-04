@@ -5,6 +5,7 @@ import router from "./router";
 import * as firebase from "firebase";
 import { store } from "./store";
 import AlertCmp from "./components/Shared/Alert";
+import moment from "moment";
 
 Vue.use(Vuetify);
 Vue.config.productionTip = false;
@@ -24,6 +25,17 @@ new Vue({
       databaseURL: "https://vuedevmt.firebaseio.com",
       projectId: "vuedevmt",
       storageBucket: "vuedevmt.appspot.com",
+    });
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.$store.dispatch("autoSignIn", user);
+      }
+    });
+    this.$store.dispatch("loadMeetups");
+    Vue.filter("date", function (value) {
+      if (value) {
+        return moment(String(value)).format("MM/DD/YYYY hh:mm");
+      }
     });
   },
 });

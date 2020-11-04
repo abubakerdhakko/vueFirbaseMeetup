@@ -90,7 +90,7 @@ export default {
       var a = { email: this.email, password: this.password };
       console.log(a);
 
-      this.$store.dispatch("signInUser", a);
+      this.$store.dispatch("signUserIn", a);
     },
     onDismissed() {
       this.$store.dispatch("clearError");
